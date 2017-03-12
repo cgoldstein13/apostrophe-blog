@@ -26,10 +26,28 @@ module.exports = {
         def: now.format('YYYY-MM-DD'),
         required: true
       },
+      {
+        name: 'link',
+        label: 'Link',
+        type: 'string',
+        required: true
+      },
+      {
+        name: 'image',
+        label: 'Image',
+        type: 'string',
+        required: true
+      },
+      {
+        name: 'description',
+        label: 'Description',
+        type: 'string',
+        required: true
+      }
     ].concat(options.addFields || []);
 
     options.arrangeFields = _.merge([
-      { name: 'basic', label: 'Basics', fields: ['title', 'slug'] },
+      { name: 'basic', label: 'Basics', fields: ['title', 'slug', 'link', 'image', 'description'] },
       { name: 'meta', label: 'Meta', fields: ['tags','published'] }
     ], options.arrangeFields || []);
 

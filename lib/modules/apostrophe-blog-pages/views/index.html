@@ -8,18 +8,75 @@
     }, changes) }}
   {%- endmacro -%}
 
-  <ul class="apos-blog-filters">
-    <li><a href="{{ here({ year: null }) }}" class="apos-blog-filters-link">All years</a></li>
-    {% for year in data.piecesFilters.year %}
-      <li><a href="{{ here({ year: year.value }) }}" class="apos-blog-filters-link">{{ year.label }}</a></li>
-    {% endfor %}
-  </ul>
-  {% for piece in data.pieces %}
-    <div class="apos-blog-post-preview">
-      <h6 class="apos-blog-post-date">Published On {{ piece.publishedAt | date('MMMM Do, YYYY') }}</h6>
-      <h4 class="apos-blog-post-title"><a href="{{ piece._url }}">{{ piece.title }}</a></h4>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">
+        <img style="height: 100%" alt="Brand" src="/uploads/attachments/avery-logo.svg">
+      </a>
     </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse pull-right" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a href="/">Home</a></li>
+        {% for tab in data.home._children %}
+        <li class="
+                    {% if data.page and
+                    (apos.pages.isAncestorOf(tab, data.page) or tab._id == data.page._id)
+                    %}
+                    current
+                    {% endif %}
+                ">
+          <a href="{{ tab._url }}">{{ tab.title }}</a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+<div class="row">
+  <div class="col-xs-12">
+    {{ apos.singleton(data.page, 'news-img', 'apostrophe-images', {
+    size: 'full'
+    })
+    }}
+  </div>
+</div>
+
+  {% for piece in data.pieces %}
+<div class="main-content container">
+  <div class="row">
+    <div class="col-sm-12">
+    <div class="apos-blog-post-preview">
+      <img class="col-sm-3 col-xs-12" src="/uploads/attachments/{{ piece.image }}">
+      <div class="col-sm-9 col-xs-12">
+        <a href="{{ piece.link }}" class="news-header blue" target="_blank">{{ piece.title }}</a>
+        <p class="news-description">{{ piece.description }}</p>
+        <a href="{{ piece.link }}" class="blue" target="_blank">Read More</a>
+      </div>
+    </div>
+      </div>
+    </div>
+  </div>
   {% endfor %}
+  <div
+      class="footer">
+  <div class="row">
+    <div class="col-sm-12">
+      <span>(C) 2016 Copyright | Avery Therapeutics, Inc. |  All rights reserved.</span>
+      <span class="pull-right"><a href="/about-us">About</a> | <a href="/technology">Technology</a> | <a href="/learn-more">Contact Us</a></span>
+    </div>
+  </div>
+</div>
   {% import 'apostrophe-pager:macros.html' as pager with context %}
   {{ pager.render({ page: data.currentPage, total: data.totalPages }, data.url) }}
 {% endblock %}
