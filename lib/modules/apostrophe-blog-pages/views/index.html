@@ -1,5 +1,8 @@
 {% extends data.outerLayout %}
 {% block title %}{{ data.page.title }}{% endblock %}
+% block extraHead %}
+<link rel="icon" href="/uploads/attachments/avery-favicon.png" type="image/x-icon">
+{% endblock %}
 
 {% block main %}
   {%- macro here(changes) -%}
@@ -58,7 +61,7 @@
   <div class="main-content container">
   <div class="row">
     {% for piece in data.pieces %}
-    <div class="col-sm-12 blog-post">
+    <div class="col-sm-12 blog-post pull-left">
     <div class="apos-blog-post-preview">
       <img class="col-sm-3 col-xs-12" src="/uploads/attachments/{{ piece.image }}">
       <div class="col-sm-9 col-xs-12">
