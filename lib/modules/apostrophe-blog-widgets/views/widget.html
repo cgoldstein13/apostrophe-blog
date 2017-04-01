@@ -1,8 +1,29 @@
-{% for piece in data.widget._pieces %}
-  <h4>
-    {% if piece._url %}<a href="{{ piece._url }}">{% endif %}
-      {{ piece.title }}
-    {% if piece._url %}</a>{% endif %}
-  </h4>
-  <h5>{{ piece.start | date('MMM Do') }} at {{ piece.start | date('h:mma') }}</h5>
-{% endfor %}
+<div class="container blog">
+  <div class="row">
+    <a class="carousel-control-prev white col-sm-1 sm-hide" href="#myCarousel" role="button" data-slide="prev">&lsaquo;
+    </a>
+    <div class="col-sm-10 col-sm-offset-1">
+      <div id="myCarousel" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner col-xs-12" role="listbox">
+          {% for piece in data.widget._pieces %}
+          <div class="item {% if piece._id == data.widget._pieces[0]._id
+          %}
+          active
+          {% endif %}">
+            <div class="apos-blog-post-preview">
+              <img class="col-sm-3 col-xs-12" src="/uploads/attachments/{{ piece.image }}">
+              <div class="col-sm-9 col-xs-12">
+                <a href="{{ piece.link }}" class="news-header white" target="_blank">{{ piece.title }}</a>
+                <p class="news-description white">{{ piece.description }}</p>
+                <a href="{{ piece.link }}" class="white" target="_blank">Read More</a>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    <a class="carousel-control-next white col-sm-1 sm-hide" href="#myCarousel" role="button" data-slide="next">&rsaquo;
+    </a>
+  </div>
+</div>
